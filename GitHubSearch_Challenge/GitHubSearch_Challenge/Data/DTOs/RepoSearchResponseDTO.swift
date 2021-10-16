@@ -14,11 +14,13 @@ struct RepoSearchResponseDTO: Codable {
 }
 
 extension RepoSearchResponseDTO {
-    func toDomain(withPage page: Int, andPageSize pageSize: Int, maxSearchItems: Int) -> RepoSearchPage {
+    func toDomain(withQuery query: String, page: Int,
+                  pageSize: Int, andMaxSearchItems maxSearchItems: Int) -> RepoSearchPage {
         let allPages: Int = Int(ceil(Double(min(totalCount, maxSearchItems)) / Double(pageSize)))
         let repos: [Repo] = items.map({ $0.toDomain() })
 
-        return RepoSearchPage(page: page,
+        return RepoSearchPage(query: query,
+                              page: page,
                               allPages: allPages,
                               totalCount: totalCount,
                               repos: repos)

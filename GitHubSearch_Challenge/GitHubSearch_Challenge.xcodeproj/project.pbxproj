@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8B349AEF27170E6D00E44F79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349AEE27170E6D00E44F79 /* AppDelegate.swift */; };
 		8B349AF127170E6D00E44F79 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349AF027170E6D00E44F79 /* SceneDelegate.swift */; };
-		8B349AF327170E6D00E44F79 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349AF227170E6D00E44F79 /* ViewController.swift */; };
+		8B349AF327170E6D00E44F79 /* RepoSerachViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349AF227170E6D00E44F79 /* RepoSerachViewController.swift */; };
 		8B349AF827170E6E00E44F79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B349AF727170E6E00E44F79 /* Assets.xcassets */; };
 		8B349AFB27170E6E00E44F79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B349AF927170E6E00E44F79 /* LaunchScreen.storyboard */; };
 		8B349B0627170E6F00E44F79 /* GitHubSearch_ChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B0527170E6F00E44F79 /* GitHubSearch_ChallengeTests.swift */; };
@@ -24,6 +24,9 @@
 		8B349B3127173A9600E44F79 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B3027173A9600E44F79 /* Repo.swift */; };
 		8B349B3327173B9D00E44F79 /* SearchRepoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B3227173B9D00E44F79 /* SearchRepoUseCase.swift */; };
 		8B349B3627173DA400E44F79 /* GitHubRepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B3527173DA400E44F79 /* GitHubRepositoryError.swift */; };
+		8B64A67C271B2B200035437C /* ReposSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64A67B271B2B200035437C /* ReposSearchCoordinator.swift */; };
+		8B64A67F271B48C00035437C /* RepoSerachViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64A67E271B48C00035437C /* RepoSerachViewModel.swift */; };
+		8B64A681271B49BD0035437C /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64A680271B49BD0035437C /* BaseCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +50,7 @@
 		8B349AEB27170E6D00E44F79 /* GitHubSearch_Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubSearch_Challenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B349AEE27170E6D00E44F79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8B349AF027170E6D00E44F79 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8B349AF227170E6D00E44F79 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8B349AF227170E6D00E44F79 /* RepoSerachViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSerachViewController.swift; sourceTree = "<group>"; };
 		8B349AF727170E6E00E44F79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B349AFA27170E6E00E44F79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B349AFC27170E6E00E44F79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +68,9 @@
 		8B349B3027173A9600E44F79 /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		8B349B3227173B9D00E44F79 /* SearchRepoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepoUseCase.swift; sourceTree = "<group>"; };
 		8B349B3527173DA400E44F79 /* GitHubRepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepositoryError.swift; sourceTree = "<group>"; };
+		8B64A67B271B2B200035437C /* ReposSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposSearchCoordinator.swift; sourceTree = "<group>"; };
+		8B64A67E271B48C00035437C /* RepoSerachViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSerachViewModel.swift; sourceTree = "<group>"; };
+		8B64A680271B49BD0035437C /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +123,7 @@
 			children = (
 				8B349AEE27170E6D00E44F79 /* AppDelegate.swift */,
 				8B349AF027170E6D00E44F79 /* SceneDelegate.swift */,
-				8B349AF227170E6D00E44F79 /* ViewController.swift */,
+				8B64A67D271B48B30035437C /* Presentation */,
 				8B349AF727170E6E00E44F79 /* Assets.xcassets */,
 				8B349AF927170E6E00E44F79 /* LaunchScreen.storyboard */,
 				8B349AFC27170E6E00E44F79 /* Info.plist */,
@@ -189,6 +195,17 @@
 				8B349B3227173B9D00E44F79 /* SearchRepoUseCase.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		8B64A67D271B48B30035437C /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				8B64A67B271B2B200035437C /* ReposSearchCoordinator.swift */,
+				8B349AF227170E6D00E44F79 /* RepoSerachViewController.swift */,
+				8B64A67E271B48C00035437C /* RepoSerachViewModel.swift */,
+				8B64A680271B49BD0035437C /* BaseCoordinator.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,16 +340,19 @@
 			files = (
 				8B349B2727171E8000E44F79 /* RepoLicenseDTO.swift in Sources */,
 				8B349B2927171E8000E44F79 /* RepoDTO.swift in Sources */,
+				8B64A67F271B48C00035437C /* RepoSerachViewModel.swift in Sources */,
 				8B349B2E2717302D00E44F79 /* RepoSearchPage.swift in Sources */,
 				8B349B2827171E8000E44F79 /* RepoOwnerDTO.swift in Sources */,
 				8B349B1F27171D4A00E44F79 /* GitHubRepository.swift in Sources */,
 				8B349B2527171E8000E44F79 /* RepoSearchResponseDTO.swift in Sources */,
-				8B349AF327170E6D00E44F79 /* ViewController.swift in Sources */,
+				8B349AF327170E6D00E44F79 /* RepoSerachViewController.swift in Sources */,
 				8B349B3627173DA400E44F79 /* GitHubRepositoryError.swift in Sources */,
 				8B349B3127173A9600E44F79 /* Repo.swift in Sources */,
+				8B64A681271B49BD0035437C /* BaseCoordinator.swift in Sources */,
 				8B349AEF27170E6D00E44F79 /* AppDelegate.swift in Sources */,
 				8B349AF127170E6D00E44F79 /* SceneDelegate.swift in Sources */,
 				8B349B3327173B9D00E44F79 /* SearchRepoUseCase.swift in Sources */,
+				8B64A67C271B2B200035437C /* ReposSearchCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,7 +530,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -538,7 +558,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

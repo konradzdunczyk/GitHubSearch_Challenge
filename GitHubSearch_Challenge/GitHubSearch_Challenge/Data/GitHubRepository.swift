@@ -72,9 +72,10 @@ class DefaultGitHubRepository: GitHubRepository {
 
             do {
                 let repoSearchResp = try _jsonDecoder.decode(RepoSearchResponseDTO.self, from: data)
-                completion(.success(repoSearchResp.toDomain(withPage: page,
-                                                            andPageSize: pageSize,
-                                                            maxSearchItems: maxSearchItems)))
+                completion(.success(repoSearchResp.toDomain(withQuery: query,
+                                                            page: page,
+                                                            pageSize: pageSize,
+                                                            andMaxSearchItems: maxSearchItems)))
             } catch {
                 completion(.failure(GitHubRepositoryError.wrongData(data: data, error: error)))
                 return

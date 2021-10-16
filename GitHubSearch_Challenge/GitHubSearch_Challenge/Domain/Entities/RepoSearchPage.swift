@@ -8,6 +8,7 @@
 import Foundation
 
 struct RepoSearchPage {
+    let query: String
     let page: Int
     let allPages: Int
     let totalCount: Int
