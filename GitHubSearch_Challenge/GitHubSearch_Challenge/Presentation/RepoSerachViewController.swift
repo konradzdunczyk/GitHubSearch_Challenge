@@ -210,6 +210,16 @@ class RepoSerachViewController: UIViewController {
 }
 
 extension RepoSerachViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
+        switch item {
+        case .repo, .retryFetching:
+            return true
+        case .fetching:
+            return false
+        }
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
 
