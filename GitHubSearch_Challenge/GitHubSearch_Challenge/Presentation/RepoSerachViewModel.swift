@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import OrderedCollections
 
 protocol RepoSerachViewModel: AnyObject {
     typealias SuccessFetchType = (items: [Item], isNextPageAvailable: Bool)
     typealias FetchCompletionHandler = (Result<SuccessFetchType, Error>) -> Void
 
-    var _items: [Item] { get }
+    var items: [Item] { get }
+    var isFetching: Bool { get }
     var isNextPageAvailable: Bool { get }
 
     func search(query: String, completionHandler: @escaping FetchCompletionHandler)
@@ -23,7 +25,8 @@ protocol RepoSerachViewModel: AnyObject {
 class DefaultRepoSerachViewModel: RepoSerachViewModel {
     var handleUrlOpen: (_ url: URL) -> Void = { _ in }
 
-    private(set) var _items: [Item] = []
+    var items: [Item] { _items.elements }
+    private(set) var isFetching: Bool = false
     var isNextPageAvailable: Bool {
         guard let latestPage = _latestPage else { return false }
 
@@ -32,7 +35,7 @@ class DefaultRepoSerachViewModel: RepoSerachViewModel {
 
     private let _useCase: SearchRepoUseCase
     private var _latestPage: RepoSearchPage?
-    private var _isFetching: Bool = false
+    private var _items: OrderedSet<Item> = []
 
     init(useCase: SearchRepoUseCase) {
         self._useCase = useCase
@@ -40,23 +43,23 @@ class DefaultRepoSerachViewModel: RepoSerachViewModel {
 
     func search(query: String, completionHandler: @escaping FetchCompletionHandler) {
         // TODO: Add task cancelation
-        guard !_isFetching else { return }
+        guard !isFetching else { return }
 
         _latestPage = nil
         _items = []
 
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedQuery.isEmpty else {
-            completionHandler(.success((_items, isNextPageAvailable)))
+            completionHandler(.success((items, isNextPageAvailable)))
             return
         }
 
-        _isFetching = true
+        isFetching = true
         fetch(query: trimmedQuery, page: 1, completionHandler: completionHandler)
     }
 
     func nextPage(completionHandler: @escaping FetchCompletionHandler) {
-        guard let latestPage = _latestPage, !latestPage.isLastPage && !_isFetching else { return }
+        guard let latestPage = _latestPage, !latestPage.isLastPage && !isFetching else { return }
 
         fetch(query: latestPage.query, page: latestPage.page + 1, completionHandler: completionHandler)
     }
@@ -74,13 +77,13 @@ class DefaultRepoSerachViewModel: RepoSerachViewModel {
             switch result {
             case .success(let page):
                 strongSelf._latestPage = page
-                strongSelf._items += page.repos.map({ Item.repo($0) })
-                completionHandler(.success((strongSelf._items, strongSelf.isNextPageAvailable)))
+                strongSelf._items.append(contentsOf: page.repos.map({ Item.repo($0) }))
+                completionHandler(.success((strongSelf.items, strongSelf.isNextPageAvailable)))
             case .failure(let error):
                 completionHandler(.failure(error))
             }
 
-            strongSelf._isFetching = false
+            strongSelf.isFetching = false
         }
     }
 }

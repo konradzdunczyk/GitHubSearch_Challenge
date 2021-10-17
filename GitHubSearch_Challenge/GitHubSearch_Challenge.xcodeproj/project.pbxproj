@@ -27,6 +27,7 @@
 		8B64A67C271B2B200035437C /* ReposSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64A67B271B2B200035437C /* ReposSearchCoordinator.swift */; };
 		8B64A67F271B48C00035437C /* RepoSerachViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64A67E271B48C00035437C /* RepoSerachViewModel.swift */; };
 		8B64A681271B49BD0035437C /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64A680271B49BD0035437C /* BaseCoordinator.swift */; };
+		8B64A684271CD5D20035437C /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8B64A683271CD5D20035437C /* OrderedCollections */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B64A684271CD5D20035437C /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +226,9 @@
 			dependencies = (
 			);
 			name = GitHubSearch_Challenge;
+			packageProductDependencies = (
+				8B64A683271CD5D20035437C /* OrderedCollections */,
+			);
 			productName = GitHubSearch_Challenge;
 			productReference = 8B349AEB27170E6D00E44F79 /* GitHubSearch_Challenge.app */;
 			productType = "com.apple.product-type.application";
@@ -296,6 +301,9 @@
 				Base,
 			);
 			mainGroup = 8B349AE227170E6D00E44F79;
+			packageReferences = (
+				8B64A682271CD5D20035437C /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = 8B349AEC27170E6D00E44F79 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -704,6 +712,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8B64A682271CD5D20035437C /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B64A683271CD5D20035437C /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B64A682271CD5D20035437C /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8B349AE327170E6D00E44F79 /* Project object */;
 }

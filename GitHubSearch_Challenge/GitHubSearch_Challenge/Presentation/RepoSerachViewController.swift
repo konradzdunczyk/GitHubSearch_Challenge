@@ -62,6 +62,7 @@ class RepoSerachViewController: UIViewController {
 
         return tv
     }()
+    private let _snapshotQueue = DispatchQueue(label: "pl.kz.snapshotQueue", qos: .background)
 
     private var dataSource: DataSource!
 
@@ -103,14 +104,14 @@ class RepoSerachViewController: UIViewController {
         }
 
         if isNextPageAvailable {
-            snapshot.setFetchingCell()
+            snapshot.setFetchingItem()
         }
 
         applySnapshot(snapshot, animated: true)
     }
 
     private func applySnapshot(_ snapshot: Snapshot, animated: Bool) {
-        DispatchQueue.main.async {
+        _snapshotQueue.async {
             self.dataSource.apply(snapshot, animatingDifferences: animated, completion: nil)
         }
     }
@@ -119,8 +120,10 @@ class RepoSerachViewController: UIViewController {
         guard _viewModel.isNextPageAvailable else { return }
 
         var snapshot = dataSource.snapshot()
-        snapshot.setFetchingCell()
-        applySnapshot(snapshot, animated: false)
+        if !snapshot.hasFetchingItem {
+            snapshot.setFetchingItem()
+            applySnapshot(snapshot, animated: false)
+        }
 
         _viewModel.nextPage { result in
             switch result {
@@ -130,8 +133,10 @@ class RepoSerachViewController: UIViewController {
                 debugPrint(error)
 
                 var snapshot = self.dataSource.snapshot()
-                snapshot.setRetryFetchingCell()
-                self.applySnapshot(snapshot, animated: false)
+                if !snapshot.hasRetryFetchingItem {
+                    snapshot.setRetryFetchingItem()
+                    self.applySnapshot(snapshot, animated: false)
+                }
             }
         }
     }
@@ -145,6 +150,7 @@ class RepoSerachViewController: UIViewController {
 
         _searchBar.delegate = self
         _tableView.delegate = self
+        _tableView.prefetchDataSource = self
 
         view.addSubview(_searchBar)
         view.addSubview(_tableView)
@@ -212,10 +218,21 @@ extension RepoSerachViewController: UITableViewDelegate {
         case .repo(let repo):
             _viewModel.repoSelected(repo)
         case .fetching:
-            fetchNextPage()
+            break
         case .retryFetching:
             fetchNextPage()
         }
+    }
+}
+
+extension RepoSerachViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let fetchingSection = dataSource.snapshot().indexOfSection(.fetching),
+                !_viewModel.isFetching
+                && !dataSource.snapshot().hasRetryFetchingItem
+                && indexPaths.contains(.init(row: 0, section: fetchingSection)) else { return }
+
+        fetchNextPage()
     }
 }
 
@@ -243,15 +260,31 @@ extension RepoSerachViewController: UISearchBarDelegate {
 }
 
 private extension RepoSerachViewController.Snapshot {
-    mutating func setFetchingCell() {
-        deleteSections([.fetching])
-        appendSections([.fetching])
-        appendItems([.fetching], toSection: .fetching)
+    var hasFetchingItem: Bool {
+        itemIdentifiers(inSection: .fetching).contains(.fetching)
     }
 
-    mutating func setRetryFetchingCell() {
-        deleteSections([.fetching])
-        appendSections([.fetching])
-        appendItems([.retryFetching], toSection: .fetching)
+    var hasRetryFetchingItem: Bool {
+        itemIdentifiers(inSection: .fetching).contains(.retryFetching)
+    }
+
+    mutating func setFetchingItem() {
+        setFetchingSection(with: .fetching)
+    }
+
+    mutating func setRetryFetchingItem() {
+        setFetchingSection(with: .retryFetching)
+    }
+
+    private mutating func setFetchingSection(with item: Item) {
+        if !sectionIdentifiers.contains(.fetching) {
+            appendSections([.fetching])
+        }
+
+        let fetchingSectionItems = itemIdentifiers(inSection: .fetching)
+        if !fetchingSectionItems.contains(item) {
+            deleteItems(fetchingSectionItems)
+            appendItems([item], toSection: .fetching)
+        }
     }
 }
