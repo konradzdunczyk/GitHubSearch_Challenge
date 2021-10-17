@@ -38,6 +38,11 @@ class RepoSerachViewController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
 
     private let _viewModel: RepoSerachViewModel
+    private let _searchBar: UISearchBar = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+
+        return $0
+    }(UISearchBar())
     private let _tableView: UITableView = {
         let tv = UITableView(frame: CGRect(), style: .plain)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -87,19 +92,9 @@ class RepoSerachViewController: UIViewController {
         setupDataSource()
         setupViews()
         setupConstraints()
-
-        _viewModel.search(query: "Alamofire", completionHandler: { result in
-            switch result {
-            case .success(let (items, _)):
-                self.apply(items: items)
-            case .failure(let error):
-                // TODO: Show fullscreen error
-                debugPrint(error)
-            }
-        })
     }
 
-    private func apply(items: [Item]) {
+    private func apply(items: [Item], isNextPageAvailable: Bool) {
         var snapshot = Snapshot()
 
         if !items.isEmpty {
@@ -107,7 +102,38 @@ class RepoSerachViewController: UIViewController {
             snapshot.appendItems(items, toSection: Section.repos)
         }
 
-        dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
+        if isNextPageAvailable {
+            snapshot.setFetchingCell()
+        }
+
+        applySnapshot(snapshot, animated: true)
+    }
+
+    private func applySnapshot(_ snapshot: Snapshot, animated: Bool) {
+        DispatchQueue.main.async {
+            self.dataSource.apply(snapshot, animatingDifferences: animated, completion: nil)
+        }
+    }
+
+    private func fetchNextPage() {
+        guard _viewModel.isNextPageAvailable else { return }
+
+        var snapshot = dataSource.snapshot()
+        snapshot.setFetchingCell()
+        applySnapshot(snapshot, animated: false)
+
+        _viewModel.nextPage { result in
+            switch result {
+            case .success(let (items, isNextPageAvailable)):
+                self.apply(items: items, isNextPageAvailable: isNextPageAvailable)
+            case .failure(let error):
+                debugPrint(error)
+
+                var snapshot = self.dataSource.snapshot()
+                snapshot.setRetryFetchingCell()
+                self.applySnapshot(snapshot, animated: false)
+            }
+        }
     }
 
     private func setupViews() {
@@ -117,15 +143,21 @@ class RepoSerachViewController: UIViewController {
         _tableView.register(UITableViewCell.self, forCellReuseIdentifier: "fetching")
         _tableView.register(UITableViewCell.self, forCellReuseIdentifier: "retryFetching")
 
+        _searchBar.delegate = self
         _tableView.delegate = self
 
+        view.addSubview(_searchBar)
         view.addSubview(_tableView)
     }
 
     private func setupConstraints() {
         let c = [
+            _searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            _searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            _searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+
+            _tableView.topAnchor.constraint(equalTo: _searchBar.bottomAnchor),
             _tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            _tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             _tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             _tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
@@ -175,7 +207,51 @@ extension RepoSerachViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
 
-        guard case let .repo(repo) = dataSource.itemIdentifier(for: indexPath) else { return }
-        _viewModel.repoSelected(repo)
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
+        switch item {
+        case .repo(let repo):
+            _viewModel.repoSelected(repo)
+        case .fetching:
+            fetchNextPage()
+        case .retryFetching:
+            fetchNextPage()
+        }
+    }
+}
+
+extension RepoSerachViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+
+        _viewModel.search(query: searchBar.text ?? "") { result in
+            switch result {
+            case .success(let (items, isNextPageAvailable)):
+                self.apply(items: items, isNextPageAvailable: isNextPageAvailable)
+            case .failure(let error):
+                debugPrint(error)
+
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error",
+                                                  message: error.localizedDescription,
+                                                  preferredStyle: .alert)
+                    alert.addAction(.init(title: "OK", style: .default, handler: { _ in searchBar.becomeFirstResponder() }))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+}
+
+private extension RepoSerachViewController.Snapshot {
+    mutating func setFetchingCell() {
+        deleteSections([.fetching])
+        appendSections([.fetching])
+        appendItems([.fetching], toSection: .fetching)
+    }
+
+    mutating func setRetryFetchingCell() {
+        deleteSections([.fetching])
+        appendSections([.fetching])
+        appendItems([.retryFetching], toSection: .fetching)
     }
 }

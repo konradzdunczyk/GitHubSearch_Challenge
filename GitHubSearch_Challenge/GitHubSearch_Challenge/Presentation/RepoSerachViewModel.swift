@@ -42,11 +42,17 @@ class DefaultRepoSerachViewModel: RepoSerachViewModel {
         // TODO: Add task cancelation
         guard !_isFetching else { return }
 
-        _isFetching = true
         _latestPage = nil
         _items = []
 
-        fetch(query: query, page: 1, completionHandler: completionHandler)
+        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedQuery.isEmpty else {
+            completionHandler(.success((_items, isNextPageAvailable)))
+            return
+        }
+
+        _isFetching = true
+        fetch(query: trimmedQuery, page: 1, completionHandler: completionHandler)
     }
 
     func nextPage(completionHandler: @escaping FetchCompletionHandler) {
