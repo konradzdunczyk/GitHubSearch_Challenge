@@ -31,6 +31,7 @@
 		8B64A684271CD5D20035437C /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8B64A683271CD5D20035437C /* OrderedCollections */; };
 		8B948A50271F0BAB00B3FE8D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */; };
 		8B948A52271F0FFA00B3FE8D /* RepoSerachTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A51271F0FFA00B3FE8D /* RepoSerachTypes.swift */; };
+		8B948A55271F127900B3FE8D /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A54271F127900B3FE8D /* Cancellable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		8B64A680271B49BD0035437C /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8B948A51271F0FFA00B3FE8D /* RepoSerachTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSerachTypes.swift; sourceTree = "<group>"; };
+		8B948A54271F127900B3FE8D /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 		8B349B2C2717301400E44F79 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				8B948A53271F126D00B3FE8D /* Protocols */,
 				8B349B2F27173A8600E44F79 /* Entities */,
 				8B349B3427173CB700E44F79 /* UseCases */,
 			);
@@ -217,6 +220,14 @@
 				8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		8B948A53271F126D00B3FE8D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8B948A54271F127900B3FE8D /* Cancellable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +372,7 @@
 				8B349B2E2717302D00E44F79 /* RepoSearchPage.swift in Sources */,
 				8B948A50271F0BAB00B3FE8D /* LoadingView.swift in Sources */,
 				8B349B2827171E8000E44F79 /* RepoOwnerDTO.swift in Sources */,
+				8B948A55271F127900B3FE8D /* Cancellable.swift in Sources */,
 				8B5A86BF271EED6200E3F711 /* FetchingCell.swift in Sources */,
 				8B349B1F27171D4A00E44F79 /* GitHubRepository.swift in Sources */,
 				8B349B2527171E8000E44F79 /* RepoSearchResponseDTO.swift in Sources */,

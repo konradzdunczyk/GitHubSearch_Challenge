@@ -10,7 +10,7 @@ import Foundation
 protocol GitHubRepository {
     func fetchRepositoriesList(query: String,
                                page: Int,
-                               completion: @escaping (Result<RepoSearchPage, GitHubRepositoryError>) -> Void)
+                               completion: @escaping (Result<RepoSearchPage, GitHubRepositoryError>) -> Void) -> Cancellable?
 }
 
 class DefaultGitHubRepository: GitHubRepository {
@@ -31,7 +31,7 @@ class DefaultGitHubRepository: GitHubRepository {
         self.pageSize = max(min(pageSize, 100), 0)
     }
 
-    func fetchRepositoriesList(query: String, page: Int, completion: @escaping (Result<RepoSearchPage, GitHubRepositoryError>) -> Void) {
+    func fetchRepositoriesList(query: String, page: Int, completion: @escaping (Result<RepoSearchPage, GitHubRepositoryError>) -> Void) -> Cancellable? {
         var urlComponents = URLComponents(string: "https://api.github.com/search/repositories")
         urlComponents?.queryItems = [
             .init(name: "q", value: query),
@@ -43,7 +43,7 @@ class DefaultGitHubRepository: GitHubRepository {
 
         guard let url = urlComponents?.url else {
             completion(.failure(GitHubRepositoryError.wrongUrl))
-            return
+            return nil
         }
 
         var urlReq = URLRequest(url: url,
@@ -51,7 +51,12 @@ class DefaultGitHubRepository: GitHubRepository {
         urlReq.httpMethod = "GET"
         urlReq.setValue("application/vnd.github.v3+json", forHTTPHeaderField: "Accept")
 
-        _urlSession.dataTask(with: urlReq) { [_jsonDecoder, pageSize, maxSearchItems] data, response, error in
+        let task = _urlSession.dataTask(with: urlReq) { [_jsonDecoder, pageSize, maxSearchItems] data, response, error in
+            if let error = error {
+                completion(.failure(GitHubRepositoryError.unknown(error: error)))
+                return
+            }
+
             guard let data = data,
                   let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(GitHubRepositoryError.wrongResponse(response: response, error: error)))
@@ -80,6 +85,10 @@ class DefaultGitHubRepository: GitHubRepository {
                 completion(.failure(GitHubRepositoryError.wrongData(data: data, error: error)))
                 return
             }
-        }.resume()
+        }
+
+        task.resume()
+
+        return task
     }
 }

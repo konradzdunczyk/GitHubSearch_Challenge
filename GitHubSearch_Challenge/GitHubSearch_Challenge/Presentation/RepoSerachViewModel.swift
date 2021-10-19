@@ -12,7 +12,6 @@ protocol RepoSerachViewModel: AnyObject {
     typealias SuccessFetchType = (items: [Item], isNextPageAvailable: Bool)
     typealias FetchCompletionHandler = (Result<SuccessFetchType, Error>) -> Void
 
-    var items: [Item] { get }
     var isFetching: Bool { get }
     var isNextPageAvailable: Bool { get }
 
@@ -25,7 +24,6 @@ protocol RepoSerachViewModel: AnyObject {
 class DefaultRepoSerachViewModel: RepoSerachViewModel {
     var handleUrlOpen: (_ url: URL) -> Void = { _ in }
 
-    var items: [Item] { _items.elements }
     private(set) var isFetching: Bool = false
     var isNextPageAvailable: Bool {
         guard let latestPage = _latestPage else { return false }
@@ -36,25 +34,23 @@ class DefaultRepoSerachViewModel: RepoSerachViewModel {
     private let _useCase: SearchRepoUseCase
     private var _latestPage: RepoSearchPage?
     private var _items: OrderedSet<Item> = []
+    private var _latestTask: Cancellable?
 
     init(useCase: SearchRepoUseCase) {
         self._useCase = useCase
     }
 
     func search(query: String, completionHandler: @escaping FetchCompletionHandler) {
-        // TODO: Add task cancelation
-        guard !isFetching else { return }
-
+        _latestTask?.cancel()
         _latestPage = nil
         _items = []
 
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedQuery.isEmpty else {
-            completionHandler(.success((items, isNextPageAvailable)))
+            completionHandler(.success((_items.elements, isNextPageAvailable)))
             return
         }
 
-        isFetching = true
         fetch(query: trimmedQuery, page: 1, completionHandler: completionHandler)
     }
 
@@ -71,19 +67,27 @@ class DefaultRepoSerachViewModel: RepoSerachViewModel {
     }
 
     private func fetch(query: String, page: Int, completionHandler: @escaping FetchCompletionHandler) {
-        _useCase.execute(requestValue: .init(query: query, page: page)) { [weak self] result in
+        isFetching = true
+        _latestTask = _useCase.execute(requestValue: .init(query: query, page: page)) { [weak self] result in
             guard let strongSelf = self else { return }
+
+            strongSelf._latestTask = nil
+            strongSelf.isFetching = false
 
             switch result {
             case .success(let page):
                 strongSelf._latestPage = page
                 strongSelf._items.append(contentsOf: page.repos.map({ Item.repo($0) }))
-                completionHandler(.success((strongSelf.items, strongSelf.isNextPageAvailable)))
+                completionHandler(.success((strongSelf._items.elements, strongSelf.isNextPageAvailable)))
             case .failure(let error):
+                // Ignore cancelled error
+                if case let GitHubRepositoryError.unknown(error) = error,
+                   (error as NSError).code == NSURLErrorCancelled {
+                    return
+                }
+
                 completionHandler(.failure(error))
             }
-
-            strongSelf.isFetching = false
         }
     }
 }

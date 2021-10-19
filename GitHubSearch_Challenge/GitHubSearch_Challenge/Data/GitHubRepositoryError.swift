@@ -21,4 +21,5 @@ enum GitHubRepositoryError: Error {
     case wrongData(data: Data, error: Error)
     case validationFailed(message: ValidationMessage?)
     case serviceUnavailable
+    case unknown(error: Error)
 }

@@ -9,7 +9,7 @@ import Foundation
 
 protocol SearchRepoUseCase {
     func execute(requestValue: SearchRepoUseCaseRequestValue,
-                 completion: @escaping (Result<RepoSearchPage, GitHubRepositoryError>) -> Void)
+                 completion: @escaping (Result<RepoSearchPage, GitHubRepositoryError>) -> Void) -> Cancellable?
 }
 
 final class DefaultSearchRepoUseCase: SearchRepoUseCase {
@@ -20,7 +20,7 @@ final class DefaultSearchRepoUseCase: SearchRepoUseCase {
     }
 
     func execute(requestValue: SearchRepoUseCaseRequestValue,
-                 completion: @escaping (Result<RepoSearchPage, GitHubRepositoryError>) -> Void) {
+                 completion: @escaping (Result<RepoSearchPage, GitHubRepositoryError>) -> Void) -> Cancellable? {
         gitHubRepository.fetchRepositoriesList(query: requestValue.query,
                                                page: requestValue.page,
                                                completion: completion)
