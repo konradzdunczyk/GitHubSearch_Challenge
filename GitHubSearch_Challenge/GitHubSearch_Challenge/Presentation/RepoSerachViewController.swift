@@ -7,32 +7,6 @@
 
 import UIKit
 
-enum Section: Hashable {
-    case repos
-    case fetching
-}
-
-enum Item: Hashable {
-    case repo(_ repo: Repo)
-    case fetching
-    case retryFetching
-
-    func hash(into hasher: inout Hasher) {
-        switch self {
-        case .repo(let item):
-            hasher.combine(item.id)
-        case .fetching:
-            hasher.combine("fetching")
-        case .retryFetching:
-            hasher.combine("retryFetching")
-        }
-    }
-
-    static func == (lhs: Item, rhs: Item) -> Bool {
-        lhs.hashValue == rhs.hashValue
-    }
-}
-
 class RepoSerachViewController: UIViewController {
     typealias DataSource = UITableViewDiffableDataSource<Section, Item>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
@@ -40,6 +14,7 @@ class RepoSerachViewController: UIViewController {
     private let _viewModel: RepoSerachViewModel
     private let _searchBar: UISearchBar = {
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.placeholder = "Dude, what r u looking for"
 
         return $0
     }(UISearchBar())
@@ -60,16 +35,20 @@ class RepoSerachViewController: UIViewController {
                                                   width: 0.0,
                                                   height: 0.01))
 
+        tv.keyboardDismissMode = .onDrag
+
         return tv
     }()
     private let _snapshotQueue = DispatchQueue(label: "pl.kz.snapshotQueue", qos: .background)
-
-    private var dataSource: DataSource!
+    private var _dataSource: DataSource!
+    private var _loadingView: LoadingView?
 
     init(viewModel: RepoSerachViewModel) {
         self._viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
+
+        title = "Search"
     }
 
     @available(*, unavailable)
@@ -112,14 +91,14 @@ class RepoSerachViewController: UIViewController {
 
     private func applySnapshot(_ snapshot: Snapshot, animated: Bool) {
         _snapshotQueue.async {
-            self.dataSource.apply(snapshot, animatingDifferences: animated, completion: nil)
+            self._dataSource.apply(snapshot, animatingDifferences: animated, completion: nil)
         }
     }
 
     private func fetchNextPage() {
         guard _viewModel.isNextPageAvailable else { return }
 
-        var snapshot = dataSource.snapshot()
+        var snapshot = _dataSource.snapshot()
         if !snapshot.hasFetchingItem {
             snapshot.setFetchingItem()
             applySnapshot(snapshot, animated: false)
@@ -132,7 +111,7 @@ class RepoSerachViewController: UIViewController {
             case .failure(let error):
                 debugPrint(error)
 
-                var snapshot = self.dataSource.snapshot()
+                var snapshot = self._dataSource.snapshot()
                 if !snapshot.hasRetryFetchingItem {
                     snapshot.setRetryFetchingItem()
                     self.applySnapshot(snapshot, animated: false)
@@ -145,7 +124,7 @@ class RepoSerachViewController: UIViewController {
         view.backgroundColor = .white
 
         _tableView.register(UITableViewCell.self, forCellReuseIdentifier: "repo")
-        _tableView.register(UITableViewCell.self, forCellReuseIdentifier: "fetching")
+        _tableView.register(FetchingCell.self, forCellReuseIdentifier: "fetching")
         _tableView.register(UITableViewCell.self, forCellReuseIdentifier: "retryFetching")
 
         _searchBar.delegate = self
@@ -172,7 +151,7 @@ class RepoSerachViewController: UIViewController {
     }
 
     private func setupDataSource() {
-        dataSource = .init(tableView: _tableView, cellProvider: { tableView, indexPath, itemIdentifier in
+        _dataSource = .init(tableView: _tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             switch itemIdentifier {
             case .repo(let item):
                 let cell = tableView.dequeueReusableCell(withIdentifier: "repo", for: indexPath)
@@ -186,32 +165,58 @@ class RepoSerachViewController: UIViewController {
                     return $0
                 }(NSMutableAttributedString())
                 config.secondaryText = "License: \(item.licenseName ?? "NONE")"
-
                 cell.contentConfiguration = config
 
                 return cell
             case .fetching:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "fetching", for: indexPath)
-                var config = cell.defaultContentConfiguration()
-                config.text = ">>> FETCHING <<<"
-                cell.contentConfiguration = config
 
                 return cell
             case .retryFetching:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "retryFetching", for: indexPath)
                 var config = cell.defaultContentConfiguration()
-                config.text = ">>> RETRY FETCHING <<<"
+                config.text = "Fetching more repo failed"
+                config.secondaryText = "Tap to retry"
+                config.textProperties.alignment = .center
+                config.textProperties.color = .gray
+                config.secondaryTextProperties.alignment = .center
+                config.secondaryTextProperties.color = .lightGray
                 cell.contentConfiguration = config
 
                 return cell
             }
         })
     }
+
+    private func setLoadingView() {
+        if let loadingView = _loadingView {
+            view.bringSubviewToFront(loadingView)
+            return
+        }
+
+        let loadingView = LoadingView()
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loadingView)
+
+        let c = [
+            loadingView.centerXAnchor.constraint(equalTo: _tableView.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: _tableView.centerYAnchor)
+        ]
+
+        NSLayoutConstraint.activate(c)
+
+        _loadingView = loadingView
+    }
+
+    private func hideLoadingView() {
+        _loadingView?.removeFromSuperview()
+        _loadingView = nil
+    }
 }
 
 extension RepoSerachViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
+        guard let item = _dataSource.itemIdentifier(for: indexPath) else { return false }
         switch item {
         case .repo, .retryFetching:
             return true
@@ -223,7 +228,7 @@ extension RepoSerachViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
 
-        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
+        guard let item = _dataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
         case .repo(let repo):
             _viewModel.repoSelected(repo)
@@ -237,9 +242,9 @@ extension RepoSerachViewController: UITableViewDelegate {
 
 extension RepoSerachViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        guard let fetchingSection = dataSource.snapshot().indexOfSection(.fetching),
+        guard let fetchingSection = _dataSource.snapshot().indexOfSection(.fetching),
                 !_viewModel.isFetching
-                && !dataSource.snapshot().hasRetryFetchingItem
+                && !_dataSource.snapshot().hasRetryFetchingItem
                 && indexPaths.contains(.init(row: 0, section: fetchingSection)) else { return }
 
         fetchNextPage()
@@ -249,11 +254,13 @@ extension RepoSerachViewController: UITableViewDataSourcePrefetching {
 extension RepoSerachViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        _tableView.isUserInteractionEnabled = false
+        setLoadingView()
 
-        _viewModel.search(query: searchBar.text ?? "") { result in
+        _viewModel.search(query: searchBar.text ?? "") { [weak self] result in
             switch result {
             case .success(let (items, isNextPageAvailable)):
-                self.apply(items: items, isNextPageAvailable: isNextPageAvailable)
+                self?.apply(items: items, isNextPageAvailable: isNextPageAvailable)
             case .failure(let error):
                 debugPrint(error)
 
@@ -262,8 +269,13 @@ extension RepoSerachViewController: UISearchBarDelegate {
                                                   message: error.localizedDescription,
                                                   preferredStyle: .alert)
                     alert.addAction(.init(title: "OK", style: .default, handler: { _ in searchBar.becomeFirstResponder() }))
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
+            }
+
+            DispatchQueue.main.async {
+                self?._tableView.isUserInteractionEnabled = true
+                self?.hideLoadingView()
             }
         }
     }
