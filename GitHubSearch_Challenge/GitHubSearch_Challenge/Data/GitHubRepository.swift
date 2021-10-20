@@ -67,6 +67,15 @@ class DefaultGitHubRepository: GitHubRepository {
             switch httpResponse.statusCode {
             case 200:
                 break
+            case 403:
+                guard let resetTimeStampStr = httpResponse.allHeaderFields["x-ratelimit-reset"] as? String,
+                      let resetTimeStamp = TimeInterval(resetTimeStampStr) else {
+                    completion(.failure(GitHubRepositoryError.serviceUnavailable))
+                    return
+                }
+
+                completion(.failure(GitHubRepositoryError.tooManyRequests(resetDate: Date(timeIntervalSince1970: resetTimeStamp))))
+                return
             case 422:
                 let message = try? _jsonDecoder.decode(GitHubRepositoryError.ValidationMessage.self, from: data)
                 completion(.failure(GitHubRepositoryError.validationFailed(message: message)))

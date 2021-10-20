@@ -21,6 +21,7 @@ enum GitHubRepositoryError: Error {
     case wrongData(data: Data, error: Error)
     case validationFailed(message: ValidationMessage?)
     case serviceUnavailable
+    case tooManyRequests(resetDate: Date)
     case unknown(error: Error)
 }
 
@@ -37,6 +38,9 @@ extension GitHubRepositoryError: CustomStringConvertible {
             return "Validation failed with message: \(String(describing: message?.message))"
         case .serviceUnavailable:
             return "Service unavailable"
+        case .tooManyRequests(let resetDate):
+            let tryAgainInS = Int(ceil(Date().distance(to: resetDate)))
+            return "Too many requests to GitHub. Try again in \(tryAgainInS)s"
         case .unknown(error: let error):
             return "Unknown error: \(error.localizedDescription)"
         }

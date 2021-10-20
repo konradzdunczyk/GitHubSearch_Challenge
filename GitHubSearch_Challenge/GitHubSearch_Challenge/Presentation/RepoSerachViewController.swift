@@ -261,6 +261,10 @@ extension RepoSerachViewController: UISearchBarDelegate {
             switch result {
             case .success(let (items, isNextPageAvailable)):
                 self?.apply(items: items, isNextPageAvailable: isNextPageAvailable)
+
+                DispatchQueue.main.async {
+                    self?._tableView.setContentOffset(CGPoint(), animated: false)
+                }
             case .failure(let error):
                 debugPrint(error)
 
