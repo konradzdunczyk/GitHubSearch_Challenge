@@ -264,12 +264,17 @@ extension RepoSerachViewController: UISearchBarDelegate {
             case .failure(let error):
                 debugPrint(error)
 
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Error",
-                                                  message: error.localizedDescription,
-                                                  preferredStyle: .alert)
-                    alert.addAction(.init(title: "OK", style: .default, handler: { _ in searchBar.becomeFirstResponder() }))
-                    self?.present(alert, animated: true, completion: nil)
+                switch error {
+                case .nextPageUnavailable, .fetchingInProgress:
+                    break
+                case .repoError(let repoError):
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Error",
+                                                      message: repoError.description,
+                                                      preferredStyle: .alert)
+                        alert.addAction(.init(title: "OK", style: .default, handler: { _ in searchBar.becomeFirstResponder() }))
+                        self?.present(alert, animated: true, completion: nil)
+                    }
                 }
             }
 

@@ -32,6 +32,8 @@
 		8B86F2F227206A3300C51BF8 /* SwiftyPrototype in Frameworks */ = {isa = PBXBuildFile; productRef = 8B86F2F127206A3300C51BF8 /* SwiftyPrototype */; };
 		8B86F2F527206B2F00C51BF8 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B86F2F427206B2F00C51BF8 /* Mock.generated.swift */; };
 		8B86F2F72720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B86F2F62720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift */; };
+		8B86F2FC27207F2700C51BF8 /* DefaultRepoSerachViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B86F2FB27207F2700C51BF8 /* DefaultRepoSerachViewModelTests.swift */; };
+		8B86F2FE27208D1500C51BF8 /* RepoSerachViewModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B86F2FD27208D1500C51BF8 /* RepoSerachViewModelError.swift */; };
 		8B948A50271F0BAB00B3FE8D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */; };
 		8B948A52271F0FFA00B3FE8D /* RepoSerachTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A51271F0FFA00B3FE8D /* RepoSerachTypes.swift */; };
 		8B948A55271F127900B3FE8D /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A54271F127900B3FE8D /* Cancellable.swift */; };
@@ -72,6 +74,8 @@
 		8B86F2F427206B2F00C51BF8 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		8B86F2F62720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSearchRepoUseCaseTests.swift; sourceTree = "<group>"; };
 		8B86F2F9272075C300C51BF8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		8B86F2FB27207F2700C51BF8 /* DefaultRepoSerachViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRepoSerachViewModelTests.swift; sourceTree = "<group>"; };
+		8B86F2FD27208D1500C51BF8 /* RepoSerachViewModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSerachViewModelError.swift; sourceTree = "<group>"; };
 		8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8B948A51271F0FFA00B3FE8D /* RepoSerachTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSerachTypes.swift; sourceTree = "<group>"; };
 		8B948A54271F127900B3FE8D /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 			children = (
 				8B86F2F327206B2F00C51BF8 /* Mocks */,
 				8B86F2F62720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift */,
+				8B86F2FB27207F2700C51BF8 /* DefaultRepoSerachViewModelTests.swift */,
 			);
 			path = GitHubSearch_ChallengeTests;
 			sourceTree = "<group>";
@@ -201,6 +206,7 @@
 				8B64A680271B49BD0035437C /* BaseCoordinator.swift */,
 				8B5A86BE271EED6200E3F711 /* FetchingCell.swift */,
 				8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */,
+				8B86F2FD27208D1500C51BF8 /* RepoSerachViewModelError.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 				8B349B3627173DA400E44F79 /* GitHubRepositoryError.swift in Sources */,
 				8B349B3127173A9600E44F79 /* Repo.swift in Sources */,
 				8B64A681271B49BD0035437C /* BaseCoordinator.swift in Sources */,
+				8B86F2FE27208D1500C51BF8 /* RepoSerachViewModelError.swift in Sources */,
 				8B349AEF27170E6D00E44F79 /* AppDelegate.swift in Sources */,
 				8B349AF127170E6D00E44F79 /* SceneDelegate.swift in Sources */,
 				8B349B3327173B9D00E44F79 /* SearchRepoUseCase.swift in Sources */,
@@ -369,6 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B86F2F72720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift in Sources */,
+				8B86F2FC27207F2700C51BF8 /* DefaultRepoSerachViewModelTests.swift in Sources */,
 				8B86F2F527206B2F00C51BF8 /* Mock.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

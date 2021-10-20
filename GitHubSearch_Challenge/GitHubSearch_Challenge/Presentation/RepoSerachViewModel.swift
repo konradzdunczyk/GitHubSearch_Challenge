@@ -10,7 +10,7 @@ import OrderedCollections
 
 protocol RepoSerachViewModel: AnyObject {
     typealias SuccessFetchType = (items: [Item], isNextPageAvailable: Bool)
-    typealias FetchCompletionHandler = (Result<SuccessFetchType, Error>) -> Void
+    typealias FetchCompletionHandler = (Result<SuccessFetchType, RepoSerachViewModelError>) -> Void
 
     var isFetching: Bool { get }
     var isNextPageAvailable: Bool { get }
@@ -55,7 +55,15 @@ class DefaultRepoSerachViewModel: RepoSerachViewModel {
     }
 
     func nextPage(completionHandler: @escaping FetchCompletionHandler) {
-        guard let latestPage = _latestPage, !latestPage.isLastPage && !isFetching else { return }
+        guard let latestPage = _latestPage, !latestPage.isLastPage else {
+            completionHandler(.failure(.nextPageUnavailable))
+            return
+        }
+
+        guard !isFetching else {
+            completionHandler(.failure(.fetchingInProgress))
+            return
+        }
 
         fetch(query: latestPage.query, page: latestPage.page + 1, completionHandler: completionHandler)
     }
@@ -86,7 +94,7 @@ class DefaultRepoSerachViewModel: RepoSerachViewModel {
                     return
                 }
 
-                completionHandler(.failure(error))
+                completionHandler(.failure(.repoError(error)))
             }
         }
     }

@@ -28,7 +28,7 @@ final class DefaultSearchRepoUseCase: SearchRepoUseCase {
     }
 }
 
-struct SearchRepoUseCaseRequestValue {
+struct SearchRepoUseCaseRequestValue: Equatable {
     let query: String
     let page: Int
 }

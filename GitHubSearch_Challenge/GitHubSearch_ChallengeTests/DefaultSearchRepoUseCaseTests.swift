@@ -22,6 +22,7 @@ class DefaultSearchRepoUseCaseTests: QuickSpec {
         let testPage = RepoSearchPage(query: "Test query", page: 42,
                                       allPages: 1, totalCount: 1000, repos: [])
         let testCancellable = CancellableMock()
+        let testError = GitHubRepositoryError.wrongUrl
 
         beforeEach {
             repoMock = .init()
@@ -69,6 +70,30 @@ class DefaultSearchRepoUseCaseTests: QuickSpec {
                     })
 
                     expect(resultValue).toEventually(equal(testPage))
+                }
+            }
+
+            context("repoMock complete with error") {
+                beforeEach {
+                    repoMock.perform(.fetchRepositoriesList(query: .any, page: .any, completion: .any,
+                                                            perform: { query, page, completionHandler in
+                        completionHandler(.failure(testError))
+                    }))
+                }
+
+                it("repo search page is pass to completion handler") {
+                    var resultValue: GitHubRepositoryError?
+
+                    _ = sut.execute(requestValue: testReqValue, completion: { result in
+                        switch result {
+                        case .success:
+                            break
+                        case .failure(let error):
+                            resultValue = error
+                        }
+                    })
+
+                    expect(resultValue).toEventually(equal(testError))
                 }
             }
 
