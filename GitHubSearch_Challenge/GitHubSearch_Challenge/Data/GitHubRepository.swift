@@ -7,6 +7,7 @@
 
 import Foundation
 
+// sourcery: AutoMockable
 protocol GitHubRepository {
     func fetchRepositoriesList(query: String,
                                page: Int,

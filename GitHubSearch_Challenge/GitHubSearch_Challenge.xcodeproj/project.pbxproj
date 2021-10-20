@@ -29,6 +29,11 @@
 		8B64A67F271B48C00035437C /* RepoSerachViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64A67E271B48C00035437C /* RepoSerachViewModel.swift */; };
 		8B64A681271B49BD0035437C /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B64A680271B49BD0035437C /* BaseCoordinator.swift */; };
 		8B64A684271CD5D20035437C /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8B64A683271CD5D20035437C /* OrderedCollections */; };
+		8B86F2EA272068D000C51BF8 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 8B86F2E9272068D000C51BF8 /* Quick */; };
+		8B86F2ED272068ED00C51BF8 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 8B86F2EC272068ED00C51BF8 /* Nimble */; };
+		8B86F2F027206A3300C51BF8 /* SwiftyMocky in Frameworks */ = {isa = PBXBuildFile; productRef = 8B86F2EF27206A3300C51BF8 /* SwiftyMocky */; };
+		8B86F2F227206A3300C51BF8 /* SwiftyPrototype in Frameworks */ = {isa = PBXBuildFile; productRef = 8B86F2F127206A3300C51BF8 /* SwiftyPrototype */; };
+		8B86F2F527206B2F00C51BF8 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B86F2F427206B2F00C51BF8 /* Mock.generated.swift */; };
 		8B948A50271F0BAB00B3FE8D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */; };
 		8B948A52271F0FFA00B3FE8D /* RepoSerachTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A51271F0FFA00B3FE8D /* RepoSerachTypes.swift */; };
 		8B948A55271F127900B3FE8D /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A54271F127900B3FE8D /* Cancellable.swift */; };
@@ -77,6 +82,7 @@
 		8B64A67B271B2B200035437C /* ReposSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposSearchCoordinator.swift; sourceTree = "<group>"; };
 		8B64A67E271B48C00035437C /* RepoSerachViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSerachViewModel.swift; sourceTree = "<group>"; };
 		8B64A680271B49BD0035437C /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		8B86F2F427206B2F00C51BF8 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8B948A51271F0FFA00B3FE8D /* RepoSerachTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSerachTypes.swift; sourceTree = "<group>"; };
 		8B948A54271F127900B3FE8D /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
@@ -87,6 +93,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B86F2F027206A3300C51BF8 /* SwiftyMocky in Frameworks */,
+				8B86F2F227206A3300C51BF8 /* SwiftyPrototype in Frameworks */,
+				8B86F2ED272068ED00C51BF8 /* Nimble in Frameworks */,
+				8B86F2EA272068D000C51BF8 /* Quick in Frameworks */,
 				8B64A684271CD5D20035437C /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,6 +156,7 @@
 		8B349B0427170E6F00E44F79 /* GitHubSearch_ChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
+				8B86F2F327206B2F00C51BF8 /* Mocks */,
 				8B349B0527170E6F00E44F79 /* GitHubSearch_ChallengeTests.swift */,
 			);
 			path = GitHubSearch_ChallengeTests;
@@ -222,6 +233,14 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		8B86F2F327206B2F00C51BF8 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				8B86F2F427206B2F00C51BF8 /* Mock.generated.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		8B948A53271F126D00B3FE8D /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +267,10 @@
 			name = GitHubSearch_Challenge;
 			packageProductDependencies = (
 				8B64A683271CD5D20035437C /* OrderedCollections */,
+				8B86F2E9272068D000C51BF8 /* Quick */,
+				8B86F2EC272068ED00C51BF8 /* Nimble */,
+				8B86F2EF27206A3300C51BF8 /* SwiftyMocky */,
+				8B86F2F127206A3300C51BF8 /* SwiftyPrototype */,
 			);
 			productName = GitHubSearch_Challenge;
 			productReference = 8B349AEB27170E6D00E44F79 /* GitHubSearch_Challenge.app */;
@@ -323,6 +346,9 @@
 			mainGroup = 8B349AE227170E6D00E44F79;
 			packageReferences = (
 				8B64A682271CD5D20035437C /* XCRemoteSwiftPackageReference "swift-collections" */,
+				8B86F2E8272068D000C51BF8 /* XCRemoteSwiftPackageReference "Quick" */,
+				8B86F2EB272068ED00C51BF8 /* XCRemoteSwiftPackageReference "Nimble" */,
+				8B86F2EE27206A3300C51BF8 /* XCRemoteSwiftPackageReference "SwiftyMocky" */,
 			);
 			productRefGroup = 8B349AEC27170E6D00E44F79 /* Products */;
 			projectDirPath = "";
@@ -392,6 +418,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B86F2F527206B2F00C51BF8 /* Mock.generated.swift in Sources */,
 				8B349B0627170E6F00E44F79 /* GitHubSearch_ChallengeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -746,6 +773,30 @@
 				minimumVersion = 0.0.3;
 			};
 		};
+		8B86F2E8272068D000C51BF8 /* XCRemoteSwiftPackageReference "Quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Quick";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		8B86F2EB272068ED00C51BF8 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+		8B86F2EE27206A3300C51BF8 /* XCRemoteSwiftPackageReference "SwiftyMocky" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MakeAWishFoundation/SwiftyMocky";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -753,6 +804,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8B64A682271CD5D20035437C /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		8B86F2E9272068D000C51BF8 /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B86F2E8272068D000C51BF8 /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
+		};
+		8B86F2EC272068ED00C51BF8 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B86F2EB272068ED00C51BF8 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+		8B86F2EF27206A3300C51BF8 /* SwiftyMocky */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B86F2EE27206A3300C51BF8 /* XCRemoteSwiftPackageReference "SwiftyMocky" */;
+			productName = SwiftyMocky;
+		};
+		8B86F2F127206A3300C51BF8 /* SwiftyPrototype */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B86F2EE27206A3300C51BF8 /* XCRemoteSwiftPackageReference "SwiftyMocky" */;
+			productName = SwiftyPrototype;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

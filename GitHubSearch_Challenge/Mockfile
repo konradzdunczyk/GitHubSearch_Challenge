@@ -1,0 +1,11 @@
+sourceryCommand: null
+sourceryTemplate: null
+mocky:
+  sources:
+    include:
+    - ./GitHubSearch_Challenge
+  output: ./GitHubSearch_ChallengeTests/Mocks/Mock.generated.swift
+  targets:
+  - GitHubSearch_ChallengeTests
+  testable:
+  - GitHubSearch_Challenge

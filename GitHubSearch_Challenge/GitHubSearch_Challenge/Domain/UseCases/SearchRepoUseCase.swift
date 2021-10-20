@@ -7,6 +7,7 @@
 
 import Foundation
 
+// sourcery: AutoMockable
 protocol SearchRepoUseCase {
     func execute(requestValue: SearchRepoUseCaseRequestValue,
                  completion: @escaping (Result<RepoSearchPage, GitHubRepositoryError>) -> Void) -> Cancellable?
