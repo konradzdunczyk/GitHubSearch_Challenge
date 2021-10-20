@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RepoSearchPage {
+struct RepoSearchPage: Equatable {
     let query: String
     let page: Int
     let allPages: Int

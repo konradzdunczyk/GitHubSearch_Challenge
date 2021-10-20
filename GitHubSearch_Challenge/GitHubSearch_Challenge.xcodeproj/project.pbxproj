@@ -12,9 +12,6 @@
 		8B349AF327170E6D00E44F79 /* RepoSerachViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349AF227170E6D00E44F79 /* RepoSerachViewController.swift */; };
 		8B349AF827170E6E00E44F79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B349AF727170E6E00E44F79 /* Assets.xcassets */; };
 		8B349AFB27170E6E00E44F79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B349AF927170E6E00E44F79 /* LaunchScreen.storyboard */; };
-		8B349B0627170E6F00E44F79 /* GitHubSearch_ChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B0527170E6F00E44F79 /* GitHubSearch_ChallengeTests.swift */; };
-		8B349B1027170E6F00E44F79 /* GitHubSearch_ChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B0F27170E6F00E44F79 /* GitHubSearch_ChallengeUITests.swift */; };
-		8B349B1227170E6F00E44F79 /* GitHubSearch_ChallengeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B1127170E6F00E44F79 /* GitHubSearch_ChallengeUITestsLaunchTests.swift */; };
 		8B349B1F27171D4A00E44F79 /* GitHubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B1E27171D4A00E44F79 /* GitHubRepository.swift */; };
 		8B349B2527171E8000E44F79 /* RepoSearchResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B2027171E8000E44F79 /* RepoSearchResponseDTO.swift */; };
 		8B349B2727171E8000E44F79 /* RepoLicenseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B349B2227171E8000E44F79 /* RepoLicenseDTO.swift */; };
@@ -34,6 +31,7 @@
 		8B86F2F027206A3300C51BF8 /* SwiftyMocky in Frameworks */ = {isa = PBXBuildFile; productRef = 8B86F2EF27206A3300C51BF8 /* SwiftyMocky */; };
 		8B86F2F227206A3300C51BF8 /* SwiftyPrototype in Frameworks */ = {isa = PBXBuildFile; productRef = 8B86F2F127206A3300C51BF8 /* SwiftyPrototype */; };
 		8B86F2F527206B2F00C51BF8 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B86F2F427206B2F00C51BF8 /* Mock.generated.swift */; };
+		8B86F2F72720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B86F2F62720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift */; };
 		8B948A50271F0BAB00B3FE8D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */; };
 		8B948A52271F0FFA00B3FE8D /* RepoSerachTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A51271F0FFA00B3FE8D /* RepoSerachTypes.swift */; };
 		8B948A55271F127900B3FE8D /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B948A54271F127900B3FE8D /* Cancellable.swift */; };
@@ -41,13 +39,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		8B349B0227170E6F00E44F79 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8B349AE327170E6D00E44F79 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8B349AEA27170E6D00E44F79;
-			remoteInfo = GitHubSearch_Challenge;
-		};
-		8B349B0C27170E6F00E44F79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8B349AE327170E6D00E44F79 /* Project object */;
 			proxyType = 1;
@@ -65,10 +56,6 @@
 		8B349AFA27170E6E00E44F79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B349AFC27170E6E00E44F79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B349B0127170E6F00E44F79 /* GitHubSearch_ChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitHubSearch_ChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B349B0527170E6F00E44F79 /* GitHubSearch_ChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearch_ChallengeTests.swift; sourceTree = "<group>"; };
-		8B349B0B27170E6F00E44F79 /* GitHubSearch_ChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitHubSearch_ChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B349B0F27170E6F00E44F79 /* GitHubSearch_ChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearch_ChallengeUITests.swift; sourceTree = "<group>"; };
-		8B349B1127170E6F00E44F79 /* GitHubSearch_ChallengeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearch_ChallengeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8B349B1E27171D4A00E44F79 /* GitHubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepository.swift; sourceTree = "<group>"; };
 		8B349B2027171E8000E44F79 /* RepoSearchResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoSearchResponseDTO.swift; sourceTree = "<group>"; };
 		8B349B2227171E8000E44F79 /* RepoLicenseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoLicenseDTO.swift; sourceTree = "<group>"; };
@@ -83,6 +70,8 @@
 		8B64A67E271B48C00035437C /* RepoSerachViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSerachViewModel.swift; sourceTree = "<group>"; };
 		8B64A680271B49BD0035437C /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		8B86F2F427206B2F00C51BF8 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
+		8B86F2F62720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSearchRepoUseCaseTests.swift; sourceTree = "<group>"; };
+		8B86F2F9272075C300C51BF8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		8B948A4F271F0BAB00B3FE8D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8B948A51271F0FFA00B3FE8D /* RepoSerachTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSerachTypes.swift; sourceTree = "<group>"; };
 		8B948A54271F127900B3FE8D /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
@@ -108,13 +97,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8B349B0827170E6F00E44F79 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -123,8 +105,8 @@
 			children = (
 				8B349AED27170E6D00E44F79 /* GitHubSearch_Challenge */,
 				8B349B0427170E6F00E44F79 /* GitHubSearch_ChallengeTests */,
-				8B349B0E27170E6F00E44F79 /* GitHubSearch_ChallengeUITests */,
 				8B349AEC27170E6D00E44F79 /* Products */,
+				8B86F2F8272075C300C51BF8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -133,7 +115,6 @@
 			children = (
 				8B349AEB27170E6D00E44F79 /* GitHubSearch_Challenge.app */,
 				8B349B0127170E6F00E44F79 /* GitHubSearch_ChallengeTests.xctest */,
-				8B349B0B27170E6F00E44F79 /* GitHubSearch_ChallengeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,18 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				8B86F2F327206B2F00C51BF8 /* Mocks */,
-				8B349B0527170E6F00E44F79 /* GitHubSearch_ChallengeTests.swift */,
+				8B86F2F62720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift */,
 			);
 			path = GitHubSearch_ChallengeTests;
-			sourceTree = "<group>";
-		};
-		8B349B0E27170E6F00E44F79 /* GitHubSearch_ChallengeUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8B349B0F27170E6F00E44F79 /* GitHubSearch_ChallengeUITests.swift */,
-				8B349B1127170E6F00E44F79 /* GitHubSearch_ChallengeUITestsLaunchTests.swift */,
-			);
-			path = GitHubSearch_ChallengeUITests;
 			sourceTree = "<group>";
 		};
 		8B349B2A27172F1E00E44F79 /* Data */ = {
@@ -241,6 +213,14 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		8B86F2F8272075C300C51BF8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8B86F2F9272075C300C51BF8 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8B948A53271F126D00B3FE8D /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,24 +274,6 @@
 			productReference = 8B349B0127170E6F00E44F79 /* GitHubSearch_ChallengeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8B349B0A27170E6F00E44F79 /* GitHubSearch_ChallengeUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8B349B1B27170E6F00E44F79 /* Build configuration list for PBXNativeTarget "GitHubSearch_ChallengeUITests" */;
-			buildPhases = (
-				8B349B0727170E6F00E44F79 /* Sources */,
-				8B349B0827170E6F00E44F79 /* Frameworks */,
-				8B349B0927170E6F00E44F79 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8B349B0D27170E6F00E44F79 /* PBXTargetDependency */,
-			);
-			name = GitHubSearch_ChallengeUITests;
-			productName = GitHubSearch_ChallengeUITests;
-			productReference = 8B349B0B27170E6F00E44F79 /* GitHubSearch_ChallengeUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -326,10 +288,6 @@
 						CreatedOnToolsVersion = 13.0;
 					};
 					8B349B0027170E6F00E44F79 = {
-						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 8B349AEA27170E6D00E44F79;
-					};
-					8B349B0A27170E6F00E44F79 = {
 						CreatedOnToolsVersion = 13.0;
 						TestTargetID = 8B349AEA27170E6D00E44F79;
 					};
@@ -356,7 +314,6 @@
 			targets = (
 				8B349AEA27170E6D00E44F79 /* GitHubSearch_Challenge */,
 				8B349B0027170E6F00E44F79 /* GitHubSearch_ChallengeTests */,
-				8B349B0A27170E6F00E44F79 /* GitHubSearch_ChallengeUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -372,13 +329,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8B349AFF27170E6F00E44F79 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8B349B0927170E6F00E44F79 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -418,17 +368,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B86F2F72720712F00C51BF8 /* DefaultSearchRepoUseCaseTests.swift in Sources */,
 				8B86F2F527206B2F00C51BF8 /* Mock.generated.swift in Sources */,
-				8B349B0627170E6F00E44F79 /* GitHubSearch_ChallengeTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8B349B0727170E6F00E44F79 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8B349B1027170E6F00E44F79 /* GitHubSearch_ChallengeUITests.swift in Sources */,
-				8B349B1227170E6F00E44F79 /* GitHubSearch_ChallengeUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,11 +380,6 @@
 			isa = PBXTargetDependency;
 			target = 8B349AEA27170E6D00E44F79 /* GitHubSearch_Challenge */;
 			targetProxy = 8B349B0227170E6F00E44F79 /* PBXContainerItemProxy */;
-		};
-		8B349B0D27170E6F00E44F79 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8B349AEA27170E6D00E44F79 /* GitHubSearch_Challenge */;
-			targetProxy = 8B349B0C27170E6F00E44F79 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -582,6 +518,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GitHubSearch_Challenge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -610,6 +547,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GitHubSearch_Challenge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -679,50 +617,6 @@
 			};
 			name = Release;
 		};
-		8B349B1C27170E6F00E44F79 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "pl.KZ.GitHubSearch-ChallengeUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = GitHubSearch_Challenge;
-			};
-			name = Debug;
-		};
-		8B349B1D27170E6F00E44F79 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "pl.KZ.GitHubSearch-ChallengeUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = GitHubSearch_Challenge;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -749,15 +643,6 @@
 			buildConfigurations = (
 				8B349B1927170E6F00E44F79 /* Debug */,
 				8B349B1A27170E6F00E44F79 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8B349B1B27170E6F00E44F79 /* Build configuration list for PBXNativeTarget "GitHubSearch_ChallengeUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8B349B1C27170E6F00E44F79 /* Debug */,
-				8B349B1D27170E6F00E44F79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
